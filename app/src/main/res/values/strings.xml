@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">maktaba</string>
+    <string name="email">Email</string>
+    <string name="forgot">forgot your password? type your email,check this then click sign in</string>
+    <string name="password">Password</string>
+    <string name="logo">logo</string>
+    <string name="level">Level</string>
+    <string-array name="classe">
+
+        <item>Choose Your Division</item>
+        <item>ING A1</item>
+        <item>ING GL-A2</item>
+        <item>ING II-A2</item>
+        <item>ING GL-A3</item>
+        <item>ING II-A3</item>
+        <item>MP ENG-A1</item>
+        <item>MP ENG-A2</item>
+        <item>MP GM-A1</item>
+        <item>MP GM-A2-GPPM</item>
+        <item>MP GM-A2-PRODU</item>
+        <item>MR INFO-A1</item>
+        <item>MR INFO-A2</item>
+        <item>MR MSEE-A1</item>
+        <item>MR MSEE-A2</item>
+        <item>PREP A1</item>
+        <item>PREP A2</item>
+        <item>LF SI A1</item>
+        <item>LF SI A2</item>
+        <item>LF SI A3</item>
+        <item>LF EEA A1</item>
+        <item>LF EEA A2</item>
+        <item>LF EEA A3</item>
+        <item>LF GM A1</item>
+        <item>LF GM A2</item>
+        <item>LF GM A3</item>
+        <item>LA EEA A1</item>
+        <item>LA EEA EII-A2</item>
+        <item>LA EEA EEI-A2</item>
+        <item>LA EEA EII-A3</item>
+        <item>LA EEA EEI-A3</item>
+        <item>LA II A1</item>
+        <item>LA II A2</item>
+        <item>LA II A3</item>
+        <item>LA ENERG A1</item>
+        <item>LA ENERG A2</item>
+        <item>LA ENERG A3</item>
+        <item>LA GC A1</item>
+        <item>LA GC A2</item>
+        <item>LA GC A3</item>
+        <item>LA EM A1</item>
+        <item>LA EM A2</item>
+        <item>LA EM A3</item>
+        <item>LA GM A1</item>
+        <item>LA GM A2</item>
+        <item>LA GM A3</item>
+
+
+    </string-array>
+</resources>

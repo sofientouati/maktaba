@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email</string>
+    <string name="forgot">forgot your password? type your email and check this and click sign in</string>
+    <string name="password">Password</string>
+    <string name="logo">logo</string>
+    <string name="level">Level</string>
+</resources>

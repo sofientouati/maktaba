@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0sp"
+    android:paddingLeft="0sp"
+    android:paddingRight="0sp"
+    android:paddingTop="0sp"
+    android:background="#2BAAF7"
+    tools:context="com.sofientouati.ISSATsoLibrary.SignUpActivity">
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_maktba"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/imgLogo"
+        android:layout_above="@+id/buttonBarLayout"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/rel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/buttonBarLayout">
+
+           <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:foregroundTint="#fff"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="#FFf"
+               >
+
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:id="@+id/input_emaail"
+                    android:inputType="textEmailAddress"
+                    android:layout_above="@+id/input_password"
+                    android:layout_alignParentStart="true">
+                </android.support.v7.widget.AppCompatEditText>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout_email"
+                android:layout_above="@+id/buttonBarLayout"
+                android:layout_alignParentEnd="true">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/input_password"
+                    android:layout_above="@+id/buttonBarLayout"
+                    android:layout_alignParentStart="true">
+                </android.support.v7.widget.AppCompatEditText>
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_cin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout_password"
+                android:layout_above="@+id/buttonBarLayout"
+                android:layout_alignParentEnd="true">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="identity card number"
+                    android:inputType="number"
+                    android:id="@+id/input_cin"
+                    android:layout_above="@+id/buttonBarLayout"
+                    android:layout_alignParentStart="true">
+                </android.support.v7.widget.AppCompatEditText>
+        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_cen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout_cin"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Student Card number"
+                    android:inputType="number"
+                    android:id="@+id/input_cen"
+                    android:layout_above="@+id/buttonBarLayout"
+                    android:layout_alignParentStart="true">
+                </android.support.v7.widget.AppCompatEditText>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout_cen"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:inputType="textPersonName"
+                    android:id="@+id/input_name"
+                    android:layout_above="@+id/buttonBarLayout"
+                    android:layout_alignParentStart="true">
+                </android.support.v7.widget.AppCompatEditText>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout_name"
+                android:weightSum="1"
+                android:orientation="vertical">
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Surname"
+                    android:inputType="textPersonName"
+                    android:id="@+id/input_surname"
+                    android:layout_above="@+id/buttonBarLayout"
+                    android:layout_alignParentStart="true">
+                </android.support.v7.widget.AppCompatEditText>
+            </android.support.design.widget.TextInputLayout>
+                <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout_surname"
+
+                android:text="date of birth"
+                android:textColor="#fff"/>
+                <DatePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/datePicker"
+                    android:spinnersShown="true"
+                    android:maxDate="12/31/2000"
+                    android:minDate="01/01/1980"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
+                    android:layout_below="@+id/txtDate" />
+                <Spinner
+                    android:id="@+id/division"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/classe"
+                    android:layout_below="@id/datePicker">
+                </Spinner>
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttonBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="beginning">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dip" />
+
+        <LinearLayout
+            style="?android:buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:dividerHorizontal"
+            android:orientation="horizontal" >
+
+            <Button
+                style="?android:buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.08"
+                android:textColor="#fff"
+                android:text="Continue"
+                android:id="@+id/btnSingUp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
