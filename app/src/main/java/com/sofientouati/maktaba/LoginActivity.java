@@ -94,9 +94,7 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
                     Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),"no internet connection",Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }else{
-                    if (checkBox.isChecked()){
-                        Intent intent=new Intent();
-                    }
+
                     submitForm();
                 String mail=email.getText().toString();
                 String passw=pass.getText().toString();
