@@ -1,15 +1,18 @@
-package com.sofientouati.ISSATsoLibrary;
+package com.sofientouati.maktaba;
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.parse.ParseAnonymousUtils;
+import com.parse.ParseUser;
+import com.sofientouati.ISSATsoLibrary.R;
 
 public class SplashScreen extends Activity implements Animation.AnimationListener {
     //splash screen timer
@@ -20,10 +23,11 @@ public class SplashScreen extends Activity implements Animation.AnimationListene
         setContentView(R.layout.activity_splash);
         // load the animation
         Animation blink =AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink);
-        ImageView i= (ImageView) findViewById(R.id.imgLogo);
+        final ImageView i= (ImageView) findViewById(R.id.imgLogo);
         i.startAnimation(blink);
 
         new Handler().postDelayed(new Runnable() {
+            public static final String TAG = "logged";
  
             /*
              * Showing splash screen with a timer. This will be useful when you
@@ -34,12 +38,27 @@ public class SplashScreen extends Activity implements Animation.AnimationListene
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                startActivity(i);
+                // Determine whether the current user is an anonymous user
+                Intent i;
+                if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())){
+                    Intent intent = new Intent(SplashScreen.this,
+                            LoginActivity.class);
+                    startActivity(intent);
+                    finish();}
+                else{
+                if (ParseUser.getCurrentUser() != null) {
+                i = new Intent(SplashScreen.this, BrowseActivity.class);
 
+
+                }
+                else {
+                    i = new Intent(SplashScreen.this, LoginActivity.class);
+
+                }
+                startActivity(i);
                 // close this activity
                 finish();
-            }
+            }}
         }, SPLASH_TIME_OUT);
     }
 

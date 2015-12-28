@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -31,7 +39,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFf"
             android:layout_above="@+id/input_layout_password"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="fill_parent"
@@ -54,14 +63,14 @@
     android:layout_height="wrap_content"
             android:layout_above="@+id/Chkforgot"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="46dp">
+            android:layout_marginBottom="46dp"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="@string/password"
-            android:textColorHint="#fff"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="#fff"
             android:id="@+id/input_password"
             android:layout_above="@+id/input_layout_password"
             android:layout_alignParentStart="true">
@@ -69,12 +78,15 @@
     </android.support.design.widget.TextInputLayout>
 
         <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot"
-        android:id="@+id/Chkforgot"
-        android:textColor="#fff"
-        android:checked="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot"
+            android:id="@+id/Chkforgot"
+            android:textColorHighlight="#fff"
+
+            android:textColor="#fff"
+            android:checked="false"
+
             android:textSize="10sp"
             android:layout_marginBottom="76dp"
             android:layout_above="@+id/buttonBarLayout"
@@ -130,3 +142,4 @@
 
 
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

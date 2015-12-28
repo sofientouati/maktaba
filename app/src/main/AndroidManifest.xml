@@ -2,14 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sofientouati.ISSATsoLibrary">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
+        android:name="com.sofientouati.maktaba.ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="MxosqIgdjNI0neo2OUWM9ariLheMokK4yR7bhdRA" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="don97qYjLwuB2eeUvjQfXiVNITGOJKmQ4VM0bvHb" />
+
         <activity
-            android:name=".SplashScreen"
+            android:name="com.sofientouati.maktaba.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar">
@@ -20,17 +31,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.sofientouati.maktaba.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-        <activity android:name=".SignUpActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.sofientouati.maktaba.SignUpActivity"
             android:label="Sign Up"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name="com.sofientouati.maktaba.BrowseActivity"></activity>
     </application>
+
 
 </manifest>

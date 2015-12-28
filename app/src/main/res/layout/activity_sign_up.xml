@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +16,7 @@
     android:paddingRight="0sp"
     android:paddingTop="0sp"
     android:background="#2BAAF7"
-    tools:context="com.sofientouati.ISSATsoLibrary.SignUpActivity">
+    tools:context="com.sofientouati.maktaba.SignUpActivity">
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -41,6 +49,7 @@
                android:foregroundTint="#fff"
                 android:layout_alignParentEnd="true"
                 android:backgroundTint="#FFf"
+               app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
                >
 
 
@@ -62,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_email"
                 android:layout_above="@+id/buttonBarLayout"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentEnd="true"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -79,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_password"
                 android:layout_above="@+id/buttonBarLayout"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentEnd="true"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -96,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_cin"
                 android:weightSum="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -114,7 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_cen"
                 android:weightSum="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -132,11 +145,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_name"
                 android:weightSum="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="Surname"
+                    android:textColorHighlight="#fff"
                     android:inputType="textPersonName"
                     android:id="@+id/input_surname"
                     android:layout_above="@+id/buttonBarLayout"
@@ -148,7 +163,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_surname"
-
                 android:text="date of birth"
                 android:textColor="#fff"/>
                 <DatePicker
@@ -208,3 +222,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

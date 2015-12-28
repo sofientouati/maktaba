@@ -5,6 +5,8 @@
     <string name="password">Password</string>
     <string name="logo">logo</string>
     <string name="level">Level</string>
+    <string name="err_msg_email">invalid email</string>
+    <string name="err_msg_password">wrong password</string>
     <string-array name="classe">
 
         <item>Choose Your Division</item>
