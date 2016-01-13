@@ -39,9 +39,15 @@
             android:name="com.sofientouati.maktaba.SignUpActivity"
             android:label="Sign Up"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-        <activity android:name="com.sofientouati.maktaba.BrowseActivity"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.sofientouati.maktaba.BrowseActivity"
+            android:label="Browse"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name="com.sofientouati.maktaba.ResetPassActivity"
+            android:label="Reset Password"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
-
 
 </manifest>

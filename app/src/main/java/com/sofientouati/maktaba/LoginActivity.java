@@ -1,5 +1,6 @@
 package com.sofientouati.maktaba;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -30,6 +31,7 @@ import com.sofientouati.ISSATsoLibrary.R;
 public class LoginActivity extends AppCompatActivity implements Animation.AnimationListener {
     private EditText email,pass;
     private TextInputLayout inputLayoutEmail,inputLayoutPassword;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +66,11 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
             }
         });
        onAnimationEnd(blink);
-        if (!isNetworkAvailable()) {
+     /*   if (!isNetworkAvailable()) {
             Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),"not connected to the internet!",Snackbar.LENGTH_SHORT);
             snackbar.show();
-        }
+        }*/
+
          email= (EditText) findViewById(R.id.input_emaail);
         pass= (EditText) findViewById(R.id.input_password);
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
@@ -90,19 +93,27 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
             public void onClick(View v) {
 
 
+                if(checkBox.isChecked()){
+                    Intent intenet=new Intent(LoginActivity.this,ResetPassActivity.class);
+                    intenet.putExtra("email",email.getText().toString());
+                    startActivity(intenet);
+                }
                 if (!isNetworkAvailable()) {
                     Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),"no internet connection",Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }else{
 
                     submitForm();
+                    showProgressBar("signing in");
                 String mail=email.getText().toString();
                 String passw=pass.getText().toString();
                 ParseUser.logInInBackground(mail, passw,
                         new LogInCallback() {
                             @Override
                             public void done(ParseUser user, ParseException e) {
+                                dismissProgressBar();
                                 if (user!=null){
+
                                     Intent intent=new Intent(LoginActivity.this,BrowseActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -122,6 +133,17 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
 
 
             }
+        //progress bar
+    public void showProgressBar(String message){
+        progressDialog = ProgressDialog.show(this, "", message, true);
+    }
+
+    public void dismissProgressBar(){
+        if(progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    //checking for network
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -146,6 +168,7 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
     public void onAnimationRepeat(Animation animation) {
 
     }
+    //checking edittexts
     private void submitForm() {
         if (!validateEmail() && !validatePassword()) {
             return;
