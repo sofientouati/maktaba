@@ -1,7 +1,9 @@
 package com.sofientouati.maktaba;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,11 +15,15 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -44,40 +50,75 @@ public class ResetPassActivity extends AppCompatActivity {
 
 
         inputLayoutEmail= (TextInputLayout) findViewById(R.id.input_layout_email);
-        Button btn= (Button) findViewById(R.id.btnSingUp);
+        final Button btn= (Button) findViewById(R.id.btnSingUp);
+        email.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    // NOTE: In the author's example, he uses an identifier
+                    // called searchBar. If setting this code on your EditText
+                    // then use v.getWindowToken() as a reference to your
+                    // EditText is passed into this callback as a TextView
+
+                    in.hideSoftInputFromWindow(email
+                                    .getApplicationWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+                    btn.performClick();
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 submitForm();
                 showProgressBar("SendingEmail");
-                if (!isNetworkAvailable()){
+                if (!isNetworkAvailable()) {
                     dismissProgressBar();
                     inputLayoutEmail.setError("no connection");
                     //showSnackBar("no connection");
 
-                }else {
-                ParseUser.requestPasswordResetInBackground(email.getText().toString(), new RequestPasswordResetCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            // An email was successfully sent with reset instructions.
+
+                } else {
+                    ParseUser.requestPasswordResetInBackground(email.getText().toString(), new RequestPasswordResetCallback() {
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                // An email was successfully sent with reset instructions.
+                                dismissProgressBar();
+                                Context context=ResetPassActivity.this;
+                                 new AlertDialog.Builder(context)
+                                         .setTitle("check your email")
+                                        .setMessage(R.string.linkwillbesent)
+                                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent1 = new Intent(ResetPassActivity.this, LoginActivity.class);
+                                                startActivity(intent1);
+                                            }
+                                        })
+                                        .show();
+
+                            } else {
+                                // Something went wrong. Look at the ParseException to see what's up.
+                                dismissProgressBar();
+                                showSnackBar("please check your email to reset the password");
+                                dismissProgressBar();
+                            }
 
 
-                            Intent intent1 = new Intent(ResetPassActivity.this, LoginActivity.class);
-                            startActivity(intent1);
-                        } else {
-                            // Something went wrong. Look at the ParseException to see what's up.
-                            dismissProgressBar();
-                            showSnackBar("please check your email to reset the password");
-                            dismissProgressBar();
                         }
 
-
-                        }
-
-                });
+                    });
+                }
             }
-        }});
+        });
 
     }
 //snack bar

@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_maktba"
         android:contentDescription="@string/logo"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"/>
 
 
     <RelativeLayout
@@ -51,7 +52,7 @@
                 android:id="@+id/input_emaail"
                 android:layout_alignTop="@+id/imgLogo"
 
-                >
+                android:autoText="true">
             </android.support.v7.widget.AppCompatEditText>
 
 
@@ -73,7 +74,10 @@
             android:backgroundTint="#fff"
             android:id="@+id/input_password"
             android:layout_above="@+id/input_layout_password"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:imeOptions="actionDone"
+            android:autoText="false"
+            android:drawableRight="@drawable/ic_action_visibility">
         </android.support.v7.widget.AppCompatEditText>
     </android.support.design.widget.TextInputLayout>
 

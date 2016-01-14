@@ -1,6 +1,7 @@
 package com.sofientouati.maktaba;
 
 import android.app.ProgressDialog;
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -10,17 +11,23 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -38,34 +45,7 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // load the animation
-        Animation blink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
-        RelativeLayout r = (RelativeLayout) findViewById(R.id.rel);
-        ImageView r1 = (ImageView) findViewById(R.id.imgLogo);
-        r.setVisibility(View.INVISIBLE);
 
-        r1.startAnimation(blink);
-
-        blink.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                RelativeLayout r = (RelativeLayout) findViewById(R.id.rel);
-                r.setVisibility(View.VISIBLE);
-                Animation a = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slidedown);
-                // r.startAnimation(a);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-       onAnimationEnd(blink);
      /*   if (!isNetworkAvailable()) {
             Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),"not connected to the internet!",Snackbar.LENGTH_SHORT);
             snackbar.show();
@@ -73,12 +53,56 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
 
          email= (EditText) findViewById(R.id.input_emaail);
         pass= (EditText) findViewById(R.id.input_password);
+        pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action =event.getActionMasked();
+                switch (action){
+                    case MotionEvent.ACTION_DOWN:
+                        pass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_OUTSIDE:
+                        pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+
+
+
+
+                }
+                return v.onTouchEvent(event );
+            }
+
+
+
+        });
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         final CheckBox checkBox= (CheckBox) findViewById(R.id.Chkforgot);
 
-        Button btnin = (Button) findViewById(R.id.btnSignIn);
+        final Button btnin = (Button) findViewById(R.id.btnSignIn);
         Button btnUp = (Button) findViewById(R.id.btnSingUp);
+        pass.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId== EditorInfo.IME_ACTION_DONE){
+                    btnin.performClick();
+                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    // NOTE: In the author's example, he uses an identifier
+                    // called searchBar. If setting this code on your EditText
+                    // then use v.getWindowToken() as a reference to your
+                    // EditText is passed into this callback as a TextView
+
+                    in.hideSoftInputFromWindow(pass
+                                    .getApplicationWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    return true;
+                }
+                return false;
+            }
+        });
         btnUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

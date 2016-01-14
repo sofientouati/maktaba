@@ -20,7 +20,7 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParseUser.logOut();
-                Intent intent=new Intent(BrowseActivity.this,SplashScreen.class);
+                Intent intent=new Intent(BrowseActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });

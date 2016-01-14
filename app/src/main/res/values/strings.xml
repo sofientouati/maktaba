@@ -7,6 +7,7 @@
     <string name="level">Level</string>
     <string name="err_msg_email">invalid email</string>
     <string name="err_msg_password">wrong password</string>
+    <string name="linkwillbesent">a link will be sent to your email address</string>
     <string-array name="classe">
 
         <item>Choose Your Division</item>

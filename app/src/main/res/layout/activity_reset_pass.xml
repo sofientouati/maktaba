@@ -21,7 +21,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_maktba"
         android:contentDescription="@string/logo"
-        android:layout_centerInParent="true" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_email"
@@ -40,6 +42,7 @@
         android:backgroundTint="#fff"
         android:id="@+id/input_emaail"
         android:layout_below="@+id/imgLogo"
+        android:imeOptions="actionDone"
         android:layout_alignParentStart="true">
 
     </android.support.v7.widget.AppCompatEditText>
