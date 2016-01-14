@@ -39,9 +39,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FFf"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
             android:layout_above="@+id/input_layout_password"
-            android:layout_alignParentStart="true"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+            android:layout_alignParentStart="true">
 
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="fill_parent"
@@ -51,7 +51,7 @@
                 android:inputType="textEmailAddress"
                 android:id="@+id/input_emaail"
                 android:layout_alignTop="@+id/imgLogo"
-
+                android:drawableRight="@drawable/ic_forgot_password"
                 android:autoText="true">
             </android.support.v7.widget.AppCompatEditText>
 
@@ -62,10 +62,10 @@
     android:id="@+id/input_layout_password"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-            android:layout_above="@+id/Chkforgot"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="46dp"
-            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+            android:layout_marginBottom="142dp"
+            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+            android:layout_above="@+id/buttonBarLayout"
+            android:layout_alignParentStart="true">
         <android.support.v7.widget.AppCompatEditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -75,27 +75,12 @@
             android:id="@+id/input_password"
             android:layout_above="@+id/input_layout_password"
             android:layout_alignParentStart="true"
+            android:drawableRight="@drawable/ic_action_visibility"
             android:imeOptions="actionDone"
-            android:autoText="false"
-            android:drawableRight="@drawable/ic_action_visibility">
+            android:autoText="false">
         </android.support.v7.widget.AppCompatEditText>
+
     </android.support.design.widget.TextInputLayout>
-
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/forgot"
-            android:id="@+id/Chkforgot"
-            android:textColorHighlight="#fff"
-
-            android:textColor="#fff"
-            android:checked="false"
-
-            android:textSize="10sp"
-            android:layout_marginBottom="76dp"
-            android:layout_above="@+id/buttonBarLayout"
-            android:layout_alignParentStart="true" />
-
 
 
         <LinearLayout

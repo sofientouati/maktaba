@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
@@ -53,12 +54,28 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
 
          email= (EditText) findViewById(R.id.input_emaail);
         pass= (EditText) findViewById(R.id.input_password);
+        email.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (pass.getRight() - pass.getCompoundDrawables()[2].getBounds().width())){
+                        Intent i=new Intent(LoginActivity.this,ResetPassActivity.class);
+                        startActivity(i);
+                    }
+
+
+                }
+                return false;
+            }
+        });
         pass.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action =event.getActionMasked();
                 switch (action){
                     case MotionEvent.ACTION_DOWN:
+                        if(event.getRawX() >= (pass.getRight() - pass.getCompoundDrawables()[2].getBounds().width()))
                         pass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                         break;
                     case MotionEvent.ACTION_UP:
@@ -78,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
         });
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
-        final CheckBox checkBox= (CheckBox) findViewById(R.id.Chkforgot);
+
 
         final Button btnin = (Button) findViewById(R.id.btnSignIn);
         Button btnUp = (Button) findViewById(R.id.btnSingUp);
@@ -117,11 +134,7 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
             public void onClick(View v) {
 
 
-                if(checkBox.isChecked()){
-                    Intent intenet=new Intent(LoginActivity.this,ResetPassActivity.class);
-                    intenet.putExtra("email",email.getText().toString());
-                    startActivity(intenet);
-                }
+
                 if (!isNetworkAvailable()) {
                     Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),"no internet connection",Snackbar.LENGTH_SHORT);
                     snackbar.show();
