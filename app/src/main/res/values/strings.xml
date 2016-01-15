@@ -8,6 +8,11 @@
     <string name="err_msg_email">invalid email</string>
     <string name="err_msg_password">wrong password</string>
     <string name="linkwillbesent">a link will be sent to your email address</string>
+    <string name="err_msg_cen">Enter a valid student card number</string>
+    <string name="err_msg_cin">Enter a valid id number</string>
+    <string name="err_msg_name">invalid name</string>
+    <string name="err_msg_surname">invalid surname</string>
+    <string name="err_msg_date">set your birth date</string>
     <string-array name="classe">
 
         <item>Choose Your Division</item>

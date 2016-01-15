@@ -88,13 +88,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-            android:divider="@drawable/divider"
+            android:divider="@drawable/divider_h"
             android:showDividers="middle"
         android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dip" />
+            android:layout_height="1sp" />
 
         <LinearLayout
             style="?android:buttonBarStyle"

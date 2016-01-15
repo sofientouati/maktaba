@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -23,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseException;
@@ -34,10 +36,12 @@ public class ResetPassActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private TextInputLayout inputLayoutEmail;
     private EditText email;
+    private Intent intent1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pass);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         final Intent intent=getIntent();
         intent.getExtras();
         email= (EditText) findViewById(R.id.input_emaail);
@@ -48,7 +52,15 @@ public class ResetPassActivity extends AppCompatActivity {
         email.setText(mail);
 
 
-
+        ImageView backBtn= (ImageView) findViewById(R.id.btnBack);
+        backBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ResetPassActivity.this.intent1=new Intent(ResetPassActivity.this,LoginActivity.class);
+                ResetPassActivity.this.startActivity(intent1);
+                return false;
+            }
+        });
         inputLayoutEmail= (TextInputLayout) findViewById(R.id.input_layout_email);
         final Button btn= (Button) findViewById(R.id.btnSingUp);
         email.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -147,9 +159,6 @@ public class ResetPassActivity extends AppCompatActivity {
         if (!validateEmail()) {
             return;
         }
-
-
-
     }
     private boolean validateEmail() {
         String mail = email.getText().toString().trim();
