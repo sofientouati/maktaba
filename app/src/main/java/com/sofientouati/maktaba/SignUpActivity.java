@@ -46,47 +46,48 @@ import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "date";
-    private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLayoutCen,inputLayoutName,inputLayoutSurname,inputLayoutDate;
-    private EditText inputEmail,inputPass,inputCin,inputCen,inputName,inputSurname,inputDate;
-    private String email,pass,cin,cen,name,surname,date;
+    private TextInputLayout inputLayoutEmail, inputLayoutPass, inputLayoutCin, inputLayoutCen, inputLayoutName, inputLayoutSurname, inputLayoutDate;
+    private EditText inputEmail, inputPass, inputCin, inputCen, inputName, inputSurname, inputDate;
+    private String email, pass, cin, cen, name, surname, date;
     private ImageView backBtn;
     private Intent intent;
     private Spinner spinner;
     private ProgressDialog progressDialog;
     private Date dated;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        Intent main=getIntent();
+        Intent main = getIntent();
         main.getExtras();
-        String txtemail = null,txtpass = null;
+        String txtemail = null, txtpass = null;
 
-        txtemail =main.getStringExtra("email");
-
-
-        txtpass= main.getStringExtra("pass");
+        txtemail = main.getStringExtra("email");
 
 
-        spinner= (Spinner) findViewById(R.id.division);
-        inputLayoutEmail= (TextInputLayout) findViewById(R.id.input_layout_email);
-        inputLayoutPass= (TextInputLayout) findViewById(R.id.input_layout_password);
-        inputLayoutCen= (TextInputLayout) findViewById(R.id.input_layout_cen);
-        inputLayoutCin= (TextInputLayout) findViewById(R.id.input_layout_cin);
-        inputLayoutName= (TextInputLayout) findViewById(R.id.input_layout_name);
-        inputLayoutSurname= (TextInputLayout) findViewById(R.id.input_layout_surname);
-        //inputLayoutDate= (TextInputLayout) findViewById(R.id.input_layout_date);
+        txtpass = main.getStringExtra("pass");
+
+
+        spinner = (Spinner) findViewById(R.id.division);
+        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
+        inputLayoutPass = (TextInputLayout) findViewById(R.id.input_layout_password);
+        inputLayoutCen = (TextInputLayout) findViewById(R.id.input_layout_cen);
+        inputLayoutCin = (TextInputLayout) findViewById(R.id.input_layout_cin);
+        inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
+        inputLayoutSurname = (TextInputLayout) findViewById(R.id.input_layout_surname);
+        //   inputLayoutDate= (TextInputLayout) findViewById(R.id.input_layout_date);
         inputEmail = (EditText) findViewById(R.id.input_emaail);
         inputPass = (EditText) findViewById(R.id.input_password);
         inputCin = (EditText) findViewById(R.id.input_cin);
         inputCen = (EditText) findViewById(R.id.input_cen);
         inputName = (EditText) findViewById(R.id.input_name);
         inputSurname = (EditText) findViewById(R.id.input_surname);
-       // inputDate = (EditText) findViewById(R.id.input_date);
+        //  inputDate = (EditText) findViewById(R.id.input_date);
 
 
-/*         inputDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        /* inputDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
              @Override
              public void onFocusChange(View v, boolean hasFocus) {
                  if(hasFocus){
@@ -100,123 +101,103 @@ public class SignUpActivity extends AppCompatActivity {
 */
 
 
-
-
-        backBtn= (ImageView) findViewById(R.id.btnBack);
+        backBtn = (ImageView) findViewById(R.id.btnBack);
 
         backBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                intent=new Intent(SignUpActivity.this,LoginActivity.class);
+                intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 return false;
             }
         });
-        Button btn= (Button) findViewById(R.id.btnContinue);
+        Button btn = (Button) findViewById(R.id.btnContinue);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showProgressBar("loading");
 
 
-
-                if(!submitForm()){
-                    Log.d("date", "onClick: "+date);
+                if (!submitForm()) {
+                    //  Log.d("date", "onClick: "+date);
                     dismissProgressBar();
-            }
-
-
-              else  if(!isNetworkAvailable()){
+                } else if (!isNetworkAvailable()) {
                     dismissProgressBar();
-                    showSnackBar("no connection!");}
-                else{
+                    showSnackBar("no connection!");
+                } else {
 
 
+                    email = inputEmail.getText().toString();
+                    pass = inputPass.getText().toString();
+                    cin = inputCin.getText().toString();
+                    cen = inputCen.getText().toString();
+                    name = inputName.getText().toString();
+                    surname = inputSurname.getText().toString();
+                    // date= inputDate.getText().toString();
+                    //   Log.d("dated", "onClick: "+date);
+                    // Log.d("dated", "onClick: " + inputDate.getText().toString());
 
-                email= inputEmail.getText().toString();
-                pass= inputPass.getText().toString();
-                cin= inputCin.getText().toString();
-                cen= inputCen.getText().toString();
-                name= inputName.getText().toString();
-                surname= inputSurname.getText().toString();
-//                date= inputDate.getText().toString();
-                   // Log.d("dated", "onClick: "+date);
-                   // Log.d("dated", "onClick: " + inputDate.getText().toString());
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Student");
 
-                ParseQuery<ParseObject> query=ParseQuery.getQuery("Student");
+                    query.whereEqualTo("cin", inputCin.getText().toString());
+                    query.whereEqualTo("cen", inputCen.getText().toString());
+                    Log.d("Student", "onClick: " + inputCen.getText().toString());
+                    query.whereEqualTo("name", inputName.getText().toString());
+                    query.whereEqualTo("surname", inputSurname.getText().toString());
+                    //query.whereEqualTo("birthdate", convDate());
+                    query.whereEqualTo("division", spinner.getSelectedItem().toString());
+                    //Log.d("Student", "onClick: " + spinner.getSelectedItem().toString());
+                    query.whereEqualTo("existing", false);
+                    query.getFirstInBackground(new GetCallback<ParseObject>() {
 
-                query.whereEqualTo("cin",inputCin.getText().toString());
-                query.whereEqualTo("cen", inputCen.getText().toString());
-               // Log.d("Student", "onClick: " + inputCen.getText().toString());
-                query.whereEqualTo("name", inputName.getText().toString());
-                query.whereEqualTo("surname", inputSurname.getText().toString());
-                //query.whereEqualTo("birthdate", convDate());
-                query.whereEqualTo("division", spinner.getSelectedItem().toString());
-                //Log.d("Student", "onClick: " + spinner.getSelectedItem().toString());
-                query.whereEqualTo("existing", false);
-                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(final ParseObject object, com.parse.ParseException e) {
+                            if (e == null) {
 
-                    @Override
-                    public void done(final ParseObject object, com.parse.ParseException e) {
-                        if(e==null){
+                                if (object.isDataAvailable()) {
+                                    object.put("existing", true);
+                                    object.saveInBackground();
+                                    ParseUser user = new ParseUser();
+                                    user.setUsername(email);
+                                    user.setPassword(pass);
+                                    user.setEmail(email);
+                                    user.put("name", name);
+                                    user.put("surname", surname);
+                                    //user.put("birthdate", convDate());
+                                    user.put("division", spinner.getSelectedItem().toString());
+                                    user.signUpInBackground(new SignUpCallback() {
+                                        @Override
+                                        public void done(com.parse.ParseException e) {
+                                            if (e == null) {
 
-                           if(object.isDataAvailable()){
-                                object.put("existing",true);
-                               //Date date = object.getDate("birthday");
-                               //Log.d("daters", "done: " + date.);
-                               object.saveInBackground();
-                                ParseUser user=new ParseUser();
-                                user.setUsername(email);
-                                user.setPassword(pass);
-                                user.setEmail(email);
-                                user.put("name", name);
-                                user.put("surname", surname);
-                                //user.put("birthdate", convDate());
-                                user.put("division", spinner.getSelectedItem().toString());
-                                user.signUpInBackground(new SignUpCallback() {
-                                    @Override
-                                    public void done(com.parse.ParseException e) {
-                                        if(e==null){
-
-                                            dismissProgressBar();}
-                                        else {
-                                            Log.d("user", "done: !");
-                                            showSnackBar("unsigned " + e.getMessage());
-                                            dismissProgressBar();
+                                                dismissProgressBar();
+                                            } else {
+                                                Log.d("user", "done: !");
+                                                showSnackBar("unsigned " + e.getMessage());
+                                                dismissProgressBar();
+                                            }
                                         }
-                                    }
-                               });
-                           }
-                       }
-                 else{
-                            dismissProgressBar();
-                            if(object.getBoolean("existing")==true){
-                                showSnackBar("already exited account with this id");
-                            }else{
-
-
-                                showSnackBar("Check your info");
-
+                                    });
+                                }
+                            } else {
+                                dismissProgressBar();
+                                showSnackBar("unquaried " + e.getMessage());
+                                Log.d("Student", "Error: " + e.getMessage());
                             }
                         }
-                    }
-                });
-            }}
-       });
+                    });
+                }
+            }
+        });
     }
-
-
-
-
-
 
 
     //convert edittext to date
    /* public Date convDate(){
-       // inputDate= (EditText) findViewById(R.id.input_date);
-        SimpleDateFormat formatter=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
+        inputDate= (EditText) findViewById(R.id.input_date);
+        SimpleDateFormat formaatter=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
         try{
-            dated=formatter.parse(inputDate.getText().toString());
+            dated=formaatter.parse(inputDate.getText().toString());
 
         }catch (ParseException e){
             e.getMessage();
@@ -224,22 +205,23 @@ public class SignUpActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return dated;
-    }*/
-
+    }
+*/
 
     //snack
-    public void showSnackBar(String message){
+    public void showSnackBar(String message) {
 
-        Snackbar s=Snackbar.make(findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_SHORT);
+        Snackbar s = Snackbar.make(findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_SHORT);
         s.show();
     }
+
     //progress bar
-    public void showProgressBar(String message){
+    public void showProgressBar(String message) {
         progressDialog = ProgressDialog.show(this, "", message, true);
     }
 
-    public void dismissProgressBar(){
-        if(progressDialog != null && progressDialog.isShowing())
+    public void dismissProgressBar() {
+        if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
     }
 
@@ -248,57 +230,58 @@ public class SignUpActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();}
-//submit form
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    //submit form
     private boolean submitForm() {
         if (!validateEmail()) {
 
             return false;
         }
-        if (!validatePass()){
-
-            return false;
-    }
-        if (!validateCin()){
-
-            return false;
-    }
-        if(!validateCen()){
+        if (!validatePass()) {
 
             return false;
         }
-        if(!validateName()){
+        if (!validateCin()) {
 
             return false;
         }
-        if(!validateSurname()){
+        if (!validateCen()) {
+
             return false;
         }
-       /* if(!validateDate()){
-           return false;
-        }*/
+        if (!validateName()) {
+
+            return false;
+        }
+        if (!validateSurname()) {
+            return false;
+        }
+        //  if(!validateDate()){
+        //   return false;
+        //  }
         //checking division
-        spinner= (Spinner) findViewById(R.id.division);
+        spinner = (Spinner) findViewById(R.id.division);
         View selectedView = spinner.getSelectedView();
         if (selectedView != null && selectedView instanceof TextView) {
             TextView selectedTextView = (TextView) selectedView;
-            String s= selectedTextView.getText().toString();
+            String s = selectedTextView.getText().toString();
             if (selectedTextView.getText().toString().equals("Choose Your Division")) {
                         /*String errorString = "select your division";
                         selectedTextView.setError(errorString);
                         selectedTextView.setErrorTe*/
-                TextView errorText = (TextView)spinner.getSelectedView();
+                TextView errorText = (TextView) spinner.getSelectedView();
                 errorText.setError("");
                 errorText.setTextColor(Color.RED);//just to highlight that this is an error
                 errorText.setText("Choose Your Division");//changes the selected item text to this
                 return false;
-            }
-            else {
+            } else {
                 selectedTextView.setError(null);
                 return true;
             }
         }
-return true;
+        return true;
     }
 
 
@@ -326,18 +309,18 @@ return true;
 
     //validate Pass()
     private boolean validatePass() {
-        String pass=inputPass.getText().toString().trim();
+        String pass = inputPass.getText().toString().trim();
 
-        if(pass.isEmpty()){
+        if (pass.isEmpty()) {
             inputLayoutPass.setError(getString(R.string.err_msg_password));
             requestFocus(inputPass);
-            return false;}
-        else{inputLayoutPass.setErrorEnabled(false);
+            return false;
+        } else {
+            inputLayoutPass.setErrorEnabled(false);
         }
         return true;
     }
     //validate cen
-
 
 
     private boolean validateCen() {
@@ -356,11 +339,10 @@ return true;
     }
 
     private static boolean isValidCen(String cen) {
-        return !TextUtils.isEmpty(cen) && cen.length()==7;
+        return !TextUtils.isEmpty(cen) && cen.length() == 7;
     }
 
     // validate cin
-
 
 
     private boolean validateCin() {
@@ -379,7 +361,7 @@ return true;
     }
 
     private static boolean isValidCin(String cin) {
-        return !TextUtils.isEmpty(cin) && cin.length()==8;
+        return !TextUtils.isEmpty(cin) && cin.length() == 8;
     }
 
     //validate name
@@ -400,7 +382,7 @@ return true;
     }
 
     private static boolean isValidName(String name) {
-        return !TextUtils.isEmpty(name) ;
+        return !TextUtils.isEmpty(name);
     }
 
     //validate surname
@@ -421,18 +403,18 @@ return true;
     }
 
     private static boolean isValidSurname(String surname) {
-        return !TextUtils.isEmpty(surname) ;
+        return !TextUtils.isEmpty(surname);
     }
 
     //validate birth date
 
 
-
+/*
     private boolean validateDate() {
-//        String date = inputDate.getText().toString().trim();
+        String date = inputDate.getText().toString().trim();
         Log.d("date", "validateDate: "+date);
 
-        if (date.isEmpty()/* || isValidDate(date)*/) {
+        if (date.isEmpty()) {
             inputLayoutDate.setError(getString(R.string.err_msg_date));
             requestFocus(inputDate);
             return false;
@@ -445,7 +427,9 @@ return true;
     }
     private static boolean isValidDate(String date) {
         return !TextUtils.isEmpty(date);
-    }
+
+
+}*/
 //main sets
     private void requestFocus(View view) {
         if (view.requestFocus()) {
@@ -486,7 +470,7 @@ return true;
                 case R.id.input_layout_surname:
                     validateSurname();
                     break;
-              /*  case R.id.input_layout_date:
+             /*   case R.id.input_layout_date:
                     validateDate();
                     break;*/
             }
