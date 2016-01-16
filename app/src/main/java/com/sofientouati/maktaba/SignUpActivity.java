@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,20 +26,34 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 import com.sofientouati.ISSATsoLibrary.R;
 
 import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
-private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLayoutCen,inputLayoutName,inputLayoutSurname,inputLayoutDate;
+    private static final String TAG = "date";
+    private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLayoutCen,inputLayoutName,inputLayoutSurname,inputLayoutDate;
     private EditText inputEmail,inputPass,inputCin,inputCen,inputName,inputSurname,inputDate;
+    private String email,pass,cin,cen,name,surname,date;
     private ImageView backBtn;
     private Intent intent;
     private Spinner spinner;
     private ProgressDialog progressDialog;
+    private Date dated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +68,7 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
 
         txtpass= main.getStringExtra("pass");
 
-        EditText email= (EditText) findViewById(R.id.input_emaail);
-        EditText pass= (EditText) findViewById(R.id.input_password);
-        email.setText(txtemail);
-        pass.setText(txtpass);
+
         spinner= (Spinner) findViewById(R.id.division);
         inputLayoutEmail= (TextInputLayout) findViewById(R.id.input_layout_email);
         inputLayoutPass= (TextInputLayout) findViewById(R.id.input_layout_password);
@@ -63,15 +76,17 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
         inputLayoutCin= (TextInputLayout) findViewById(R.id.input_layout_cin);
         inputLayoutName= (TextInputLayout) findViewById(R.id.input_layout_name);
         inputLayoutSurname= (TextInputLayout) findViewById(R.id.input_layout_surname);
-        inputLayoutDate= (TextInputLayout) findViewById(R.id.input_layout_date);
+        //inputLayoutDate= (TextInputLayout) findViewById(R.id.input_layout_date);
         inputEmail = (EditText) findViewById(R.id.input_emaail);
         inputPass = (EditText) findViewById(R.id.input_password);
         inputCin = (EditText) findViewById(R.id.input_cin);
         inputCen = (EditText) findViewById(R.id.input_cen);
         inputName = (EditText) findViewById(R.id.input_name);
         inputSurname = (EditText) findViewById(R.id.input_surname);
-        inputDate = (EditText) findViewById(R.id.input_date);
-         inputDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+       // inputDate = (EditText) findViewById(R.id.input_date);
+
+
+/*         inputDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
              @Override
              public void onFocusChange(View v, boolean hasFocus) {
                  if(hasFocus){
@@ -82,6 +97,9 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
                  }
              }
          });
+*/
+
+
 
 
         backBtn= (ImageView) findViewById(R.id.btnBack);
@@ -98,10 +116,94 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitForm();
+                showProgressBar("loading");
 
+
+
+                if(!submitForm()){
+                    Log.d("date", "onClick: "+date);
+                    dismissProgressBar();
             }
-        });
+
+
+              else  if(!isNetworkAvailable()){
+                    dismissProgressBar();
+                    showSnackBar("no connection!");}
+                else{
+
+
+
+                email= inputEmail.getText().toString();
+                pass= inputPass.getText().toString();
+                cin= inputCin.getText().toString();
+                cen= inputCen.getText().toString();
+                name= inputName.getText().toString();
+                surname= inputSurname.getText().toString();
+//                date= inputDate.getText().toString();
+                   // Log.d("dated", "onClick: "+date);
+                   // Log.d("dated", "onClick: " + inputDate.getText().toString());
+
+                ParseQuery<ParseObject> query=ParseQuery.getQuery("Student");
+
+                query.whereEqualTo("cin",inputCin.getText().toString());
+                query.whereEqualTo("cen", inputCen.getText().toString());
+               // Log.d("Student", "onClick: " + inputCen.getText().toString());
+                query.whereEqualTo("name", inputName.getText().toString());
+                query.whereEqualTo("surname", inputSurname.getText().toString());
+                //query.whereEqualTo("birthdate", convDate());
+                query.whereEqualTo("division", spinner.getSelectedItem().toString());
+                //Log.d("Student", "onClick: " + spinner.getSelectedItem().toString());
+                query.whereEqualTo("existing", false);
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+
+                    @Override
+                    public void done(final ParseObject object, com.parse.ParseException e) {
+                        if(e==null){
+
+                           if(object.isDataAvailable()){
+                                object.put("existing",true);
+                               //Date date = object.getDate("birthday");
+                               //Log.d("daters", "done: " + date.);
+                               object.saveInBackground();
+                                ParseUser user=new ParseUser();
+                                user.setUsername(email);
+                                user.setPassword(pass);
+                                user.setEmail(email);
+                                user.put("name", name);
+                                user.put("surname", surname);
+                                //user.put("birthdate", convDate());
+                                user.put("division", spinner.getSelectedItem().toString());
+                                user.signUpInBackground(new SignUpCallback() {
+                                    @Override
+                                    public void done(com.parse.ParseException e) {
+                                        if(e==null){
+
+                                            dismissProgressBar();}
+                                        else {
+                                            Log.d("user", "done: !");
+                                            showSnackBar("unsigned " + e.getMessage());
+                                            dismissProgressBar();
+                                        }
+                                    }
+                               });
+                           }
+                       }
+                 else{
+                            dismissProgressBar();
+                            if(object.getBoolean("existing")==true){
+                                showSnackBar("already exited account with this id");
+                            }else{
+
+
+                                showSnackBar("Check your info");
+
+                            }
+                        }
+                    }
+                });
+            }}
+       });
+    }
 
 
 
@@ -109,8 +211,27 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
 
 
 
+    //convert edittext to date
+   /* public Date convDate(){
+       // inputDate= (EditText) findViewById(R.id.input_date);
+        SimpleDateFormat formatter=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
+        try{
+            dated=formatter.parse(inputDate.getText().toString());
+
+        }catch (ParseException e){
+            e.getMessage();
+            Log.d("daters", "convDate: "+e.getMessage());
+            e.printStackTrace();
+        }
+        return dated;
+    }*/
 
 
+    //snack
+    public void showSnackBar(String message){
+
+        Snackbar s=Snackbar.make(findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_SHORT);
+        s.show();
     }
     //progress bar
     public void showProgressBar(String message){
@@ -129,22 +250,33 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();}
 //submit form
-    private void submitForm() {
+    private boolean submitForm() {
         if (!validateEmail()) {
-            return;
+
+            return false;
         }
         if (!validatePass()){
-            return;
+
+            return false;
     }
         if (!validateCin()){
-            return;
+
+            return false;
     }
         if(!validateCen()){
-            return;
+
+            return false;
         }
         if(!validateName()){
-            return;
+
+            return false;
         }
+        if(!validateSurname()){
+            return false;
+        }
+       /* if(!validateDate()){
+           return false;
+        }*/
         //checking division
         spinner= (Spinner) findViewById(R.id.division);
         View selectedView = spinner.getSelectedView();
@@ -159,12 +291,14 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
                 errorText.setError("");
                 errorText.setTextColor(Color.RED);//just to highlight that this is an error
                 errorText.setText("Choose Your Division");//changes the selected item text to this
+                return false;
             }
             else {
                 selectedTextView.setError(null);
+                return true;
             }
         }
-
+return true;
     }
 
 
@@ -295,10 +429,10 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
 
 
     private boolean validateDate() {
-        String date = inputDate.getText().toString().trim();
+//        String date = inputDate.getText().toString().trim();
+        Log.d("date", "validateDate: "+date);
 
-
-        if (date.isEmpty() && isValidDate(date)) {
+        if (date.isEmpty()/* || isValidDate(date)*/) {
             inputLayoutDate.setError(getString(R.string.err_msg_date));
             requestFocus(inputDate);
             return false;
@@ -309,8 +443,8 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
         return true;
 
     }
-    private static boolean isValidDate(String Date) {
-        return !TextUtils.isEmpty(Date) ;
+    private static boolean isValidDate(String date) {
+        return !TextUtils.isEmpty(date);
     }
 //main sets
     private void requestFocus(View view) {
@@ -352,9 +486,9 @@ private TextInputLayout inputLayoutEmail,inputLayoutPass,inputLayoutCin,inputLay
                 case R.id.input_layout_surname:
                     validateSurname();
                     break;
-                case R.id.input_layout_date:
+              /*  case R.id.input_layout_date:
                     validateDate();
-                    break;
+                    break;*/
             }
         }
     }

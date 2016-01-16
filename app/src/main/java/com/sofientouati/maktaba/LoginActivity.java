@@ -151,11 +151,16 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
                             public void done(ParseUser user, ParseException e) {
                                 dismissProgressBar();
                                 if (user!=null){
+                                    if(user.get("emailVerified")==false){
+                                        showSnackBar("please verify your email to connect");
+                                    }
+                                    else{
+
 
                                     Intent intent=new Intent(LoginActivity.this,BrowseActivity.class);
                                     startActivity(intent);
                                     finish();
-
+                                    }
                                 }
                                 else {
                                     Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),"Invalid email/password",Snackbar.LENGTH_LONG);
@@ -171,6 +176,12 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
 
 
             }
+    //show snack bar
+    public void showSnackBar(String message){
+
+        Snackbar s=Snackbar.make(findViewById(R.id.coordinatorLayout), message, Snackbar.LENGTH_SHORT);
+        s.show();
+    }
         //progress bar
     public void showProgressBar(String message){
         progressDialog = ProgressDialog.show(this, "", message, true);
