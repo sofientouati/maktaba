@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements Animation.Animat
                             public void done(ParseUser user, ParseException e) {
                                 dismissProgressBar();
                                 if (user!=null){
-                                    if(user.get("emailVerified")==false){
+                                    if(user.getBoolean("emailVerified")==false){
                                         showSnackBar("please verify your email to connect");
                                     }
                                     else{
