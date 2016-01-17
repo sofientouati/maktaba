@@ -16,7 +16,7 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:background="#2BAAF7"
+    android:background="@drawable/bg_color_gradient"
     tools:context="com.sofientouati.exp.MainActivity">
 
     >
@@ -88,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-            android:divider="@drawable/divider_h"
+            android:divider="@drawable/divider"
             android:showDividers="middle"
         android:orientation="vertical">
 

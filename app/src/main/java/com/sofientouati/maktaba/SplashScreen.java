@@ -3,10 +3,12 @@ package com.sofientouati.maktaba;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -54,6 +56,7 @@ public class SplashScreen extends Activity implements Animation.AnimationListene
 
             }
         };
+
 
        blink.setAnimationListener(animationListener);
 
@@ -110,6 +113,12 @@ public class SplashScreen extends Activity implements Animation.AnimationListene
     @Override
     public void onAnimationRepeat(Animation animation) {
 
+    }
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Window window = getWindow();
+        window.setFormat(PixelFormat.RGBA_8888);
     }
 }
 

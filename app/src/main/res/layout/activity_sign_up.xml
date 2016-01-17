@@ -15,7 +15,7 @@
     android:paddingLeft="0sp"
     android:paddingRight="0sp"
     android:paddingTop="0sp"
-    android:background="#2BAAF7"
+    android:background="@drawable/bg_color_gradient"
     tools:context="com.sofientouati.maktaba.SignUpActivity">
     <ImageView
         android:layout_width="wrap_content"
@@ -168,15 +168,21 @@
                     android:layout_alignParentStart="true">
                 </android.support.v7.widget.AppCompatEditText>
             </android.support.design.widget.TextInputLayout>
+
+
+
             <Spinner
                 android:id="@+id/division"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/classe"
-                android:background="@drawable/spinner_ab_default_example"
+                android:padding="20sp"
                 android:layout_below="@id/input_layout_surname">
             </Spinner>
-          <!--  <android.support.design.widget.TextInputLayout
+
+
+
+            <!--  <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -206,7 +212,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:divider="@drawable/divider_h"
+        android:divider="@drawable/divider"
         android:orientation="vertical"
         android:showDividers="beginning">
 

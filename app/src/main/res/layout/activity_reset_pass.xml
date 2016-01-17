@@ -13,7 +13,7 @@
     android:paddingLeft="0sp"
     android:paddingRight="0sp"
     android:paddingTop="0sp"
-    android:background="@color/bgColor"
+    android:background="@drawable/bg_color_gradient"
     tools:context="com.sofientouati.maktaba.ResetPassActivity">
     <ImageView
         android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:divider="@drawable/divider_h"
+        android:divider="@drawable/divider"
         android:orientation="vertical"
         android:showDividers="beginning">
 
