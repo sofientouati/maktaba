@@ -190,12 +190,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                            Intent intent1 = new Intent(Intent.ACTION_VIEW);
-                                                            Uri data= Uri.parse("mailto:?" +
-                                                                    "subject="+"blahblah"+"&body="+"blah"+"&to="+"send@me.com");
-                                                            intent1.setData(data);
-                                                            Intent inte=new Intent(SignUpActivity.this,LoginActivity.class);
+                                                            Intent intent1 = new Intent(Intent.ACTION_MAIN);
+                                                            intent1.addCategory(Intent.CATEGORY_APP_EMAIL);
                                                             startActivity(intent1);
+                                                            startActivity(Intent.createChooser(intent1, getString(R.string.ChoseEmailClient)));
                                                             System.exit(0);
                                                         }
                                                     })

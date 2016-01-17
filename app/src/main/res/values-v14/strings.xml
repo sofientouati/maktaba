@@ -15,4 +15,5 @@
     <string name="err_msg_date">set your birth date</string>
     <string name="chk_mail">check your email</string>
     <string name="ok">ok</string>
+    <string name="ChoseEmailClient">Choose Email Client</string>
 </resources>

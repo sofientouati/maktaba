@@ -2,6 +2,7 @@ package com.sofientouati.maktaba;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -112,12 +113,22 @@ public class ResetPassActivity extends AppCompatActivity {
                                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                Intent intent1 = new Intent(Intent.ACTION_VIEW);
-                                                Uri data= Uri.parse("mailto:?" +
-                                                        "subject="+"blahblah"+"&body="+"blah"+"&to="+"send@me.com");
-                                                intent1.setData(data);
+                                              /*  Intent intent1 = new Intent(Intent.ACTION_VIEW);
+                                               // Uri data= Uri.parse("mailto:?subject="+"blahblah"+"&body="+"blah"+"&to="+"send@me.com");
+                                                //intent1.setData(data);
+                                                intent1.setType("message/rfc822");
                                                 //Intent inte=new Intent(SignUpActivity.this,LoginActivity.class);
+                                                Intent mailer = Intent.createChooser(intent1, null);
+                                                try {
+                                                    startActivity(mailer);
+                                                }catch (ActivityNotFoundException e){
+                                                    showSnackBar("somthing went wrong please check your email app");
+                                                }*/
+                                                Intent intent1 = new Intent(Intent.ACTION_MAIN);
+                                                intent1.addCategory(Intent.CATEGORY_APP_EMAIL);
                                                 startActivity(intent1);
+                                                startActivity(Intent.createChooser(intent1, getString(R.string.ChoseEmailClient)));
+
                                                 System.exit(0);
                                             }
                                         })
