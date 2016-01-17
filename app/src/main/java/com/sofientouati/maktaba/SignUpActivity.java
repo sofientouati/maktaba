@@ -1,13 +1,16 @@
 package com.sofientouati.maktaba;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +38,7 @@ import com.parse.SignUpCallback;
 import com.sofientouati.ISSATsoLibrary.R;
 
 import java.lang.reflect.Array;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -153,7 +157,7 @@ public class SignUpActivity extends AppCompatActivity {
                 //query.whereEqualTo("birthdate", convDate());
                 query.whereEqualTo("division", spinner.getSelectedItem().toString());
                 //Log.d("Student", "onClick: " + spinner.getSelectedItem().toString());
-                query.whereEqualTo("existing", false);
+              //  query.whereEqualTo("existing", false);
                 query.getFirstInBackground(new GetCallback<ParseObject>() {
 
                     @Override
@@ -161,9 +165,9 @@ public class SignUpActivity extends AppCompatActivity {
                         if(e==null){
 
                            if(object.isDataAvailable()){
-                                object.put("existing",true);
+                             String s=   object.getDate("birthdate").toString();
                                //Date date = object.getDate("birthday");
-                               //Log.d("daters", "done: " + date.);
+                               Log.d("daters", "done: " + s);
                                object.saveInBackground();
                                 ParseUser user=new ParseUser();
                                 user.setUsername(email);
@@ -177,11 +181,29 @@ public class SignUpActivity extends AppCompatActivity {
                                     @Override
                                     public void done(com.parse.ParseException e) {
                                         if(e==null){
+                                            object.put("existing",true);
+                                            Context context=SignUpActivity.this;
+                                            new AlertDialog.Builder(context)
+                                                    .setTitle(R.string.chk_mail)
+                                                    .setMessage(R.string.linkwillbesent)
+                                                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            Intent intent1 = new Intent(Intent.ACTION_VIEW);
+                                                            Uri data= Uri.parse("mailto:?" +
+                                                                    "subject="+"blahblah"+"&body="+"blah"+"&to="+"send@me.com");
+                                                            intent1.setData(data);
+                                                            Intent inte=new Intent(SignUpActivity.this,LoginActivity.class);
+                                                            startActivity(intent1);
+                                                            System.exit(0);
+                                                        }
+                                                    })
+                                                    .show();
                                             dismissProgressBar();}
                                         else {
                                             Log.d("user", "done: !");
-                                            showSnackBar("unsigned " + e.getMessage());
+                                            showSnackBar( e.getMessage());
                                             dismissProgressBar();
                                         }
                                     }

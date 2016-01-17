@@ -6,4 +6,6 @@
     <string name="err_msg_name">invalid name</string>
     <string name="err_msg_surname">invalid surname</string>
     <string name="err_msg_date">set your birth date</string>
+    <string name="chk_mail">check your email</string>
+    <string name="ok">ok</string>
 </resources>

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -111,8 +112,13 @@ public class ResetPassActivity extends AppCompatActivity {
                                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                Intent intent1 = new Intent(ResetPassActivity.this, LoginActivity.class);
+                                                Intent intent1 = new Intent(Intent.ACTION_VIEW);
+                                                Uri data= Uri.parse("mailto:?" +
+                                                        "subject="+"blahblah"+"&body="+"blah"+"&to="+"send@me.com");
+                                                intent1.setData(data);
+                                                //Intent inte=new Intent(SignUpActivity.this,LoginActivity.class);
                                                 startActivity(intent1);
+                                                System.exit(0);
                                             }
                                         })
                                         .show();
