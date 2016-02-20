@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="prod.rtizoo.myapplication.ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/relativ_scrol">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/Title" />
+        <TextView
+            android:id="@+id/r_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_below="@+id/title"/>
+
+        <TextView
+            android:id="@+id/code"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/Code"
+            android:layout_below="@+id/r_title"/>
+        <TextView
+            android:id="@+id/r_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_below="@+id/code"/>
+        <TextView
+            android:id="@+id/auteur"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/Author"
+            android:layout_below="@+id/r_code"/>
+        <TextView
+            android:id="@+id/r_auteur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_below="@+id/auteur"/>
+        <TextView
+            android:id="@+id/category"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/Category"
+            android:layout_below="@+id/r_auteur"/>
+        <TextView
+            android:id="@+id/r_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_below="@+id/category"/>
+        <TextView
+            android:id="@+id/collection"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/Collection"
+            android:layout_below="@+id/r_category"/>
+        <TextView
+            android:id="@+id/r_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_below="@+id/collection"
+            android:text="--NOT FOUND--"/>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
+

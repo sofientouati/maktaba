@@ -40,14 +40,19 @@
             android:label="Sign Up"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.sofientouati.maktaba.BrowseActivity"
+        <activity
+            android:name="com.sofientouati.maktaba.BrowseActivity"
             android:label="Browse"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name="com.sofientouati.maktaba.ResetPassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sofientouati.maktaba.ResetPassActivity"
             android:label="Reset Password"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.sofientouati.maktaba.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
